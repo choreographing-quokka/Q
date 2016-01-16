@@ -179,9 +179,18 @@ angular.module('Q.controllers', [
     $('.spotify-embed').empty();
     //$('.spotifyContainer').html('<iframe class="spotify-widget" src="https://embed.spotify.com/?uri=https://open.spotify.com/user/hlyford11/playlist/1HqZmMA5762aaCz8zhe4Ff&theme=black' + spotifyUri +'"" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> ');
     $('.spotify-embed').html('<iframe src="https://embed.spotify.com/?uri='+ spotifyUri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
-    
-
   }
+
+  $scope.smsShareSend = function (number) {
+    $http({
+      method: 'POST',
+      url: '/sendInvite',
+      data: {
+        number: '+14156528632',
+        url: window.location.href
+      }
+    });
+  } 
   // console.log(Playlist.isHost());
 })
 
