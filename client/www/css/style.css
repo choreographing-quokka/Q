@@ -204,3 +204,15 @@ img.small {
   -webkit-appearance:radio;
   margin-left: 10px; /* Safari and Chrome */
 }
+
+@media {
+  .active .modal-backdrop-bg {
+  opacity: .5;
+  transition: opacity 300ms ease-in-out;
+  background-color: #000;
+  }
+}
+
+.smsShare {
+  margin: 0.5em 0 0 40%;
+}

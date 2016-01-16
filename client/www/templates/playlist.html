@@ -27,12 +27,13 @@
 <!-- Playlist View: If you are the host -->
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-  <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
-    <center class="center-it-auto">
-      <h3>There are no songs currently in your playlist.</h3>
-      <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
-    </center>
+      <center class="center-it-auto">
+        <h3>There are no songs currently in your playlist.</h3>
+        <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
+      </center>
     </div>
     <ul>
       <div class='row' ng-repeat="song in playlist">
@@ -51,12 +52,13 @@
         </div>
       </div>
     </ul>
-    </div>
+  </div>
 </ion-content>
 <!-- Playlist View: If you are a guest -->
 <ion-content class="has-header has-footer has-subheader" ng-show="!hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">    
     <center class="center-it-auto">
       <h3>There are no songs currently in your playlist.</h3>
@@ -122,20 +124,20 @@
     <span class="center thumb">  <img class='rounded right small'  src='/img/spotifyLogo.png'></span>
     <span class="center textcenter large">  {{ song.title }} by {{ song.artist }}</span>
   </div>
-</div>
-<!-- Sound Manager Init -->
+</div><!-- Sound Manager Init -->
 <sound-manager></sound-manager>
 
 <!-- CONTENT -->
 <!-- Playlist View: If you are the host -->
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-  <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
-    <center class="center-it-auto">
-      <h3>There are no songs currently in your playlist.</h3>
-      <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
-    </center>
+      <center class="center-it-auto">
+        <h3>There are no songs currently in your playlist.</h3>
+        <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
+      </center>
     </div>
     <ul>
       <div class='row' ng-repeat="song in playlist">
@@ -162,13 +164,13 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="!hostStatus">  
 <!-- include the fb share button here -->
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-    <span ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></span>
-    
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()">Share playing through text message</button>
     <div class="row card" ng-show="playlist.length === 0">    
-    <center class="center-it-auto">
-      <h3>There are no songs currently in your playlist.</h3>
-      <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
-    </center>
+      <center class="center-it-auto">
+        <h3>There are no songs currently in your playlist.</h3>
+        <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
+      </center>
     </div>
     <ul>
       <div class='row' ng-repeat="song in playlist">
@@ -230,4 +232,21 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</div>
+
+
+<!-- SMS invite modal -->
+<script id="my-modal.html" type="text/ng-template">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Send SMS Invite</h4>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="smsShareSend()" name="smsShareSendForm">
+          <input name="smsNumber" type="tel" required placeholder="Enter number here" id="smsNumber"></input>
+          <button type="button" class="btn btn-success" ng-click="smsShareSend()"> Send </button>
+          <button type="button" class="btn btn-default" position="float-right" ng-click="closeModal()">Close</button>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+</script>

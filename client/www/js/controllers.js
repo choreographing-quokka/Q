@@ -6,7 +6,7 @@ angular.module('Q.controllers', [
 'ngSanitize'
 ])
 // THIS IS JUST A TEST
-.controller('playlistController', function($scope, $rootScope, $location, $window, Playlist, $sce, $http) {
+.controller('playlistController', function($scope, $rootScope, $location, $window, Playlist, $sce, $http, $ionicModal) {
 
  $rootScope.songs= [];
  $rootScope.votes= [];
@@ -14,6 +14,36 @@ angular.module('Q.controllers', [
  $rootScope.customPlaylist;
  var roomUrl = queryStringValues['room'] || $rootScope.roomUrl;
  console.log('roomUrl is....', roomUrl);
+
+ /**** These functions are for SMS Invitations ****/
+ $ionicModal.fromTemplateUrl('my-modal.html', {
+   scope: $scope,
+   animation: 'slide-in-up'
+ }).then(function(modal) {
+   $scope.modal = modal;
+ });
+ 
+ $scope.openModal = function() {
+   $scope.modal.show();
+ };
+ 
+ $scope.closeModal = function() {
+   $scope.modal.hide();
+ };
+
+ $scope.smsShareSend = function () {
+  console.log($('#smsNumber').val());
+  var input = $('#smsNumber').val();
+  $http({
+    method: 'POST',
+    url: '/sendInvite',
+    data: {
+      number: '+1' + input,
+      url: window.location.href
+    }
+  });
+} 
+/****     ****/
 
  if (roomUrl) {
    $http ({
@@ -37,8 +67,8 @@ angular.module('Q.controllers', [
    // AND DO GET REQUEST FOR SONGS WITH ROOMURL
  } //window.socket.emit('newGuest');
   // include template for fb share button
- $scope.fbShare = $sce.trustAsHtml('<button class="btn btn-success">Share playlist with Facebook friends</button> ');
- $scope.SpotifyPlaylistMarkup = $sce.trustAsHtml('<button class="btn btn-danger spotify-login">Make Spotify Playlist</button> ');
+ $scope.fbShare = $sce.trustAsHtml('<button class="btn btn-success">Share playlist with Facebook friends</button>');
+ $scope.SpotifyPlaylistMarkup = $sce.trustAsHtml('<button class="btn btn-danger spotify-login">Make Spotify Playlist</button>');
  
  $scope.spotifyResponse = [];
  window.socket.on('voteUpdate', function(data){
@@ -179,9 +209,8 @@ angular.module('Q.controllers', [
     $('.spotify-embed').empty();
     //$('.spotifyContainer').html('<iframe class="spotify-widget" src="https://embed.spotify.com/?uri=https://open.spotify.com/user/hlyford11/playlist/1HqZmMA5762aaCz8zhe4Ff&theme=black' + spotifyUri +'"" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> ');
     $('.spotify-embed').html('<iframe src="https://embed.spotify.com/?uri='+ spotifyUri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
-    
-
   }
+
   // console.log(Playlist.isHost());
 })
 
