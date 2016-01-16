@@ -28,7 +28,7 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
-    <button type="button" class="btn btn-danger" ng-click="smsShareSend()"> Share playlist using SMS </button> 
+    <button class="btn btn-danger-outline" data-toggle="modal" data-target="smsModal"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
       <center class="center-it-auto">
         <h3>There are no songs currently in your playlist.</h3>
@@ -58,8 +58,8 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="!hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
-    <button type="button" class="btn btn-danger" ng-click="smsShareSend()"> Share playlist using SMS </button>
-    <diss="row card" ng-show="playlist.length === 0">    
+    <button class="btn btn-danger-outline" data-toggle="modal" data-target="smsModal"> Share playlist using SMS </button> 
+    <div class="row card" ng-show="playlist.length === 0">    
     <center class="center-it-auto">
       <h3>There are no songs currently in your playlist.</h3>
       <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
@@ -124,26 +124,20 @@
     <span class="center thumb">  <img class='rounded right small'  src='/img/spotifyLogo.png'></span>
     <span class="center textcenter large">  {{ song.title }} by {{ song.artist }}</span>
   </div>
-</div>
-<!-- Sound Manager Init -->
+</div><!-- Sound Manager Init -->
 <sound-manager></sound-manager>
 
 <!-- CONTENT -->
 <!-- Playlist View: If you are the host -->
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-<<<<<<< fbf6a70203a6884d7e3d7b0849bdceda9f2ea9e7
-  <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
+    <button class="btn btn-danger-outline" data-toggle="modal" data-target="smsModal"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
-=======
-    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
-    <button type="button" class="btn btn-danger" ng-click="smsShareSend()"> Share playlist using SMS </button>
-    <diss="row card" ng-show="playlist.length === 0">
->>>>>>> feat/twilio  Add button to frontend that sends text to Benny
-    <center class="center-it-auto">
-      <h3>There are no songs currently in your playlist.</h3>
-      <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
-    </center>
+      <center class="center-it-auto">
+        <h3>There are no songs currently in your playlist.</h3>
+        <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
+      </center>
     </div>
     <ul>
       <div class='row' ng-repeat="song in playlist">
@@ -170,38 +164,13 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="!hostStatus">  
 <!-- include the fb share button here -->
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
-    <span ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></span>
-    <button type="button" class="btn btn-danger" ng-click="smsShareSend()"> Share playlist using SMS </button>
-<!-- 
-
-    <div id="twilio-form" class="modal hide fade in" style="display: none;">
-      <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>
-        <h3>Send me a message</h3>
-      </div>
-      <div class="modal-body">
-        <form class="contact" name="contact">
-          <label class="label" for="name">Your Name</label><br>
-          <input type="text" name="name" class="input-xlarge"><br>
-          <label class="label" for="email">Your E-mail</label><br>
-          <input type="email" name="email" class="input-xlarge"><br>
-          <label class="label" for="message">Enter a Message</label><br>
-          <textarea name="message" class="input-xlarge"></textarea>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <input class="btn btn-success" type="submit" value="Send!" id="submit">
-        <a href="#" class="btn" data-dismiss="modal">Nah.</a>
-      </div>
-    </div>
-    <div id="thanks"><p><a data-toggle="modal" href="#form-content" class="btn btn-primary btn-large">Modal powers, activate!</a></p></div>
-
- -->
+    <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
+    <button type="button" class="btn btn-danger-outline" data-toggle="modal" data-target="#smsModal">Share playing through text message</button>
     <div class="row card" ng-show="playlist.length === 0">    
-    <center class="center-it-auto">
-      <h3>There are no songs currently in your playlist.</h3>
-      <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
-    </center>
+      <center class="center-it-auto">
+        <h3>There are no songs currently in your playlist.</h3>
+        <h4>Use the search bar at the top to search for songs and add to the playlist.</h4>
+      </center>
     </div>
     <ul>
       <div class='row' ng-repeat="song in playlist">
@@ -255,6 +224,26 @@
       </div>
       <div class="modal-body">
         <p>Your guests can make this suggestions and you can select which like you'd like to enqueue on this Spotify playlist.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Make Playlist</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- SMS invite modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="smsModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Enter Phone Number</h4>
+      </div>
+      <div class="modal-body">
+        <p>Send text to friends to vote on the playlist!</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
