@@ -6,7 +6,7 @@ angular.module('Q.controllers', [
 'ngSanitize'
 ])
 // THIS IS JUST A TEST
-.controller('playlistController', function($scope, $rootScope, $location, $window, Playlist, $sce, $http) {
+.controller('playlistController', function($scope, $rootScope, $location, $window, Playlist, $sce, $http, $ionicModal) {
 
  $rootScope.songs= [];
  $rootScope.votes= [];
@@ -14,6 +14,39 @@ angular.module('Q.controllers', [
  $rootScope.customPlaylist;
  var roomUrl = queryStringValues['room'] || $rootScope.roomUrl;
  console.log('roomUrl is....', roomUrl);
+
+ /**** These functions are for SMS Invitations ****/
+ $ionicModal.fromTemplateUrl('my-modal.html', {
+   scope: $scope,
+   animation: 'slide-in-up'
+ }).then(function(modal) {
+   $scope.modal = modal;
+ });
+ 
+ $scope.openModal = function() {
+   $scope.modal.show();
+ };
+ 
+ $scope.closeModal = function() {
+   $scope.modal.hide();
+ };
+
+ $scope.smsShareSend = function () {
+  console.log($('#smsNumber').val());
+  var input = $('#smsNumber').val();
+  $http({
+    method: 'POST',
+    url: '/sendInvite',
+    data: {
+      number: '+1' + input,
+      url: window.location.href
+    }
+  });
+} 
+/****     ****/
+
+
+ var roomUrl = queryStringValues['room'];
 
  if (roomUrl) {
    $http ({
@@ -181,16 +214,6 @@ angular.module('Q.controllers', [
     $('.spotify-embed').html('<iframe src="https://embed.spotify.com/?uri='+ spotifyUri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
   }
 
-  $scope.smsShareSend = function (number) {
-    $http({
-      method: 'POST',
-      url: '/sendInvite',
-      data: {
-        number: '+14156528632',
-        url: window.location.href
-      }
-    });
-  } 
   // console.log(Playlist.isHost());
 })
 
