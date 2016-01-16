@@ -28,7 +28,7 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
-    <button type="button" class="btn btn-danger-outline" ng-click="openModal()fng"> Share playlist using SMS </button> 
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
       <center class="center-it-auto">
         <h3>There are no songs currently in your playlist.</h3>
@@ -58,7 +58,7 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="!hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
-    <button type="button" class="btn btn-danger-outline" ng-click="openModal()"> Share playlist using SMS </button> 
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">    
     <center class="center-it-auto">
       <h3>There are no songs currently in your playlist.</h3>
@@ -132,7 +132,7 @@
 <ion-content class="has-header has-footer has-subheader" ng-show="hostStatus">  
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>    
-    <button type="button" class="btn btn-danger-outline" ng-click="openModal()"> Share playlist using SMS </button> 
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()"> Share playlist using SMS </button> 
     <div class="row card" ng-show="playlist.length === 0">
       <center class="center-it-auto">
         <h3>There are no songs currently in your playlist.</h3>
@@ -165,7 +165,7 @@
 <!-- include the fb share button here -->
   <div style="height:70%; margin-right:auto; margin-left:auto; width:80%">
     <div ng-bind-html="fbShare" ng-click='fbShareSend()' class="fbShareButton"></div>
-    <button type="button" class="btn btn-danger-outline" ng-click="openModal()">Share playing through text message</button>
+    <button type="button" class="btn btn-danger smsShare" ng-click="openModal()">Share playing through text message</button>
     <div class="row card" ng-show="playlist.length === 0">    
       <center class="center-it-auto">
         <h3>There are no songs currently in your playlist.</h3>
