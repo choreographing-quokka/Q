@@ -201,6 +201,7 @@ angular.module('Q.controllers', [
 })
 
 .controller('landingPageController', function($scope, $window, $http, $location, $state, $rootScope, Playlist){
+
   $scope.roomData = {};   
 
   $scope.createRoom = function(){
@@ -223,7 +224,9 @@ angular.module('Q.controllers', [
       // MAY NOT WORK BUT RIGHT TRACK
       Playlist.makeHost();
       window.socket.emit('onJoin', res.data);
+
       $window.location.href = url;
+
 
     }, function(err){
       console.log('ERR! new room was not created');
