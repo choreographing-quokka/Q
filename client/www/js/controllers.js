@@ -45,9 +45,6 @@ angular.module('Q.controllers', [
 } 
 /****     ****/
 
-
- var roomUrl = queryStringValues['room'];
-
  if (roomUrl) {
    $http ({
     method: 'GET',
